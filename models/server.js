@@ -14,19 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const sucursal_1 = __importDefault(require("../routes/sucursal"));
+const sucursal_1 = __importDefault(require("../dist/routes/sucursal"));
 const connection_1 = __importDefault(require("../db/connection"));
-const producto_1 = __importDefault(require("../routes/producto"));
-const venta_1 = __importDefault(require("../routes/venta"));
-const juego_1 = __importDefault(require("../routes/juego"));
-const empleado_1 = __importDefault(require("../routes/empleado"));
-const rol_1 = __importDefault(require("../routes/rol"));
-const dato_1 = __importDefault(require("../routes/dato"));
-const tip_prods_1 = __importDefault(require("../routes/tip_prods"));
-const distribuidors_1 = __importDefault(require("../routes/distribuidors"));
-const notas_1 = __importDefault(require("../routes/notas"));
-const usuario_1 = __importDefault(require("../routes/usuario"));
-const cliente_1 = __importDefault(require("../routes/cliente"));
+const producto_1 = __importDefault(require("../dist/routes/producto"));
+const venta_1 = __importDefault(require("../dist/routes/venta"));
+const juego_1 = __importDefault(require("../dist/routes/juego"));
+const empleado_1 = __importDefault(require("../dist/routes/empleado"));
+const rol_1 = __importDefault(require("../dist/routes/rol"));
+const dato_1 = __importDefault(require("../dist/routes/dato"));
+const tip_prods_1 = __importDefault(require("../dist/routes/tip_prods"));
+const distribuidors_1 = __importDefault(require("../dist/routes/distribuidors"));
+const notas_1 = __importDefault(require("../dist/routes/notas"));
+const usuario_1 = __importDefault(require("../dist/routes/usuario"));
+const cliente_1 = __importDefault(require("../dist/routes/cliente"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
