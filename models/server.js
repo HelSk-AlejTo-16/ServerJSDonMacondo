@@ -91,5 +91,4 @@ class Server {
         });
     }
 }
-exports.default = Server;
 module.exports = new Server();

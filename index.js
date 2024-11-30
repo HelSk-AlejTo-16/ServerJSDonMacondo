@@ -7,4 +7,4 @@ const server_1 = __importDefault(require("./models/server"));
 const dotenv_1 = __importDefault(require("dotenv"));
 //Configuracion de valores de ambiente (env)
 dotenv_1.default.config();
-const server = new server_1.default();
+const server =  server_1.default();
