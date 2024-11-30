@@ -1,6 +1,6 @@
 "use strict";
 
-const sequelize_1 = require("sequelize");
+const {Sequelize}= require("sequelize");
 /* const sequelize = new Sequelize('mr_macondo', 'root', '123456789', { //Recuerda cambiar contraseña
     host: 'localhost',
     dialect: 'mysql',
