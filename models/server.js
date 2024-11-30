@@ -1,4 +1,7 @@
 "use strict";
+const express = require("express");
+const cors = require("cors");
+const sequelize = require("./../db/connection");
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -29,12 +32,13 @@ const usuario_1 = __importDefault(require("../routes/usuario"));
 const cliente_1 = __importDefault(require("../routes/cliente"));
 class Server {
     constructor() {
-        this.app = (0, express_1.default)();
+        //this.app = (0, express_1.default)();
         this.port = process.env.PORT || '3001';
         this.listen();
         this.midlewares();
         this.routes();
         this.dbConnect();
+        this.app = express();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -62,9 +66,9 @@ class Server {
     }
     midlewares() {
         //Parseamos el body
-        this.app.use(express_1.default.json());
+        this.app.use(express.json());
         //Cors
-        this.app.use((0, cors_1.default)());
+        this.app.use(cors());
     }
     dbConnect() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -80,3 +84,4 @@ class Server {
     }
 }
 exports.default = Server;
+module.exports = new Server();
