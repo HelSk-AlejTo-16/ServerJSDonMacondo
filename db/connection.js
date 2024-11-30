@@ -19,4 +19,4 @@ const sequelize = new Sequelize(
     port: 3306 || process.env.DB_PORT,
     logging: false
 });
-exports.default = sequelize;
+module.exports= sequelize;
