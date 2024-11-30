@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("./models/server"));
 const dotenv_1 = __importDefault(require("dotenv"));
-//Configuracion de valores de ambiente (env)
+
+// Configuración de valores de ambiente (env)
 dotenv_1.default.config();
-const server =  server_1.default();
+
+// Usa directamente la instancia exportada
+const server = server_1.default;
