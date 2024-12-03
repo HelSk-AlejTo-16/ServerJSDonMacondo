@@ -20,6 +20,8 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { Emp_Email, Contrasenia } = req.body;
         const usuario = yield usuario_1.default.findOne({ where: { Emp_Email: Emp_Email }, attributes: ['id', 'IDRol', 'Contrasenia'] });
         //Validamos que el ususuario exista en la bd
+        console.log('Datos recibidos:', req.body);
+
         if (!usuario) {
             return res.status(400).json({
                 msg: `No existe un usuario con el email ${Emp_Email} en la base de datos`
