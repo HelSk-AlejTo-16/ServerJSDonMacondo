@@ -14,9 +14,9 @@ const sequelize = new Sequelize(
   
   
   {
-    host: 'mr-macondo.c74w8ysa6r4n.us-east-2.rds.amazonaws.com' || process.env.DB_HOST,
+    host: 'db-mysql-nyc3-51687-do-user-17602935-0.0.g.db.ondigitalocean.com' || process.env.DB_HOST,
     dialect: 'mysql',
-    port: 3306 || process.env.DB_PORT,
+    port: 25060 || process.env.DB_PORT,
     logging: false
 });
 module.exports= sequelize;
