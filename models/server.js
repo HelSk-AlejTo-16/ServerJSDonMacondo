@@ -38,7 +38,7 @@ class Server {
     constructor() {
         //this.app = (0, express_1.default)();
         this.app = express();
-        this.port = process.env.PORT || '3001';
+        this.port = process.env.PORT || '25060';
         this.midlewares();
         this.routes();
         this.dbConnect();
@@ -91,4 +91,11 @@ class Server {
         });
     }
 }
+console.log("Variables de entorno:");
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_PORT:", process.env.DB_PORT);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
+console.log("DB_NAME:", process.env.DB_NAME);
+
 module.exports = new Server();
