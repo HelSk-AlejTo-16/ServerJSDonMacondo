@@ -7,16 +7,33 @@ const {Sequelize}= require("sequelize");
     logging: false
   }); */
 const sequelize = new Sequelize( 
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-
+  process.env.DB_NAME, // Nombre de la base de datos
+  process.env.DB_USER, // Usuario
+  process.env.DB_PASSWORD, // Contraseña
   
   
   {
-    host: 'db-mysql-nyc3-51687-do-user-17602935-0.0.g.db.ondigitalocean.com' || process.env.DB_HOST,
-    dialect: 'mysql',
-    port: 25060 || process.env.DB_PORT,
-    logging: false
-});
-module.exports= sequelize;
+    host: process.env.DB_HOST, // Host
+    dialect: "mysql", // Tipo de base de datos
+    port: process.env.DB_PORT || 3306, // Puerto (por defecto 3306 para MySQL)
+    logging: false, // Desactivar logging de consultas en consola
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // Cambiar a true si usas un certificado válido
+      },
+    },
+  }
+);
+
+// Probar la conexión
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Conexión exitosa a la base de datos.");
+  } catch (error) {
+    console.error("Error al conectar a la base de datos:", error.message);
+  }
+})();
+
+module.exports = sequelize;
