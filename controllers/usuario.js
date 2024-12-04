@@ -1,63 +1,47 @@
 "use strict";
-const __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(resolve => resolve(value)); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(e)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = void 0;
-const usuario_1 = __importDefault(require("../models/usuario"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const bcrypt = require('bcrypt'); // Asegúrate de tener bcrypt instalado
+const jsonwebtoken_1 = require("jsonwebtoken");
+const usuario_1 = require("../models/usuario");
 
-const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const loginUser = async (req, res) => {
     try {
-        // Log para verificar los datos recibidos
         console.log("Datos recibidos:", req.body);
 
         const { Emp_Email, Contrasenia } = req.body;
 
-        // Validación de campos requeridos
+        // Validación de campos
         if (!Emp_Email || !Contrasenia) {
-            return res.status(400).json({
-                msg: "El correo electrónico y la contraseña son obligatorios"
-            });
+            return res.status(400).json({ msg: "El correo y la contraseña son obligatorios" });
         }
 
-        // Consulta del usuario en la base de datos
-        const usuario = yield usuario_1.default.findOne({
-            where: { Emp_Email: Emp_Email },
+        // Normalizar el correo (quita espacios y lo convierte a minúsculas)
+        const emailNormalizado = Emp_Email.trim().toLowerCase();
+
+        // Consulta a la base de datos
+        const usuario = await usuario_1.default.findOne({
+            where: { Emp_Email: emailNormalizado },
             attributes: ['id', 'IDRol', 'Contrasenia']
         });
 
         if (!usuario) {
-            return res.status(400).json({
-                msg: `No existe un usuario con el email ${Emp_Email}`
-            });
+            return res.status(404).json({ msg: `No existe un usuario con el email ${Emp_Email}` });
         }
 
-        // Validación de la contraseña
-        const isPasswordValid = Contrasenia === usuario.get('Contrasenia');
+        // Validar la contraseña con bcrypt (si usas hashing)
+        const isPasswordValid = await bcrypt.compare(Contrasenia, usuario.get('Contrasenia'));
         if (!isPasswordValid) {
-            return res.status(400).json({
-                msg: "La contraseña es incorrecta"
-            });
+            return res.status(401).json({ msg: "La contraseña es incorrecta" });
         }
 
-        // Generación del token
-        const token = jsonwebtoken_1.default.sign(
+        // Generar el token JWT
+        const token = jsonwebtoken_1.sign(
             { id: usuario.get('id'), IDRol: usuario.get('IDRol') },
             process.env.SECRET_KEY || 'reprobadosporbaratos',
-            { expiresIn: '1h' } // Expira en 1 hora
+            { expiresIn: '1h' }
         );
 
-        return res.json({
+        // Respuesta exitosa
+        return res.status(200).json({
             id: usuario.get('id'),
             IDRol: usuario.get('IDRol'),
             token
@@ -66,6 +50,6 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.error("Error en loginUser:", error);
         res.status(500).json({ msg: "Error en el servidor" });
     }
-});
+};
 
-exports.loginUser = loginUser;
+module.exports = { loginUser };
