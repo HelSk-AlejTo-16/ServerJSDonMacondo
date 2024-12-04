@@ -21,7 +21,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // Log para verificar los datos recibidos
         console.log("Datos recibidos:", req.body);
 
-        const { Emp_Email, Contrasenia } = req.body;
+        const { Emp_Email, Contrasenia,IDRol } = req.body;
 
         // Validación de campos requeridos
         if (!Emp_Email || !Contrasenia) {
