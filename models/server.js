@@ -70,7 +70,7 @@ class Server {
         this.app.use('/api/tip_Prod', tip_prods_1.default);
         this.app.use('/api/distribuidors', distribuidors_1.default);
         this.app.use('/api/Notas', notas_1.default);
-        this.app.use('/api/Login', usuario_1.default);
+        this.app.use('/api/login', usuario_1.default);
         this.app.use('/api/clientes', cliente_1.default);
     }
     midlewares() {
