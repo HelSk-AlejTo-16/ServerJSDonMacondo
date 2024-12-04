@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const cors = require("cors");
+
 const sequelize = require("./../db/connection");
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -69,7 +70,7 @@ class Server {
         this.app.use('/api/tip_Prod', tip_prods_1.default);
         this.app.use('/api/distribuidors', distribuidors_1.default);
         this.app.use('/api/Notas', notas_1.default);
-        this.app.use('/api/login', usuario_1.default);
+        this.app.use('/api/Login', usuario_1.default);
         this.app.use('/api/clientes', cliente_1.default);
     }
     midlewares() {
