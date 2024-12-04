@@ -1,30 +1,22 @@
 "use strict";
-const { DataTypes } = require("sequelize");
-const connection_1 = require("../db/connection");
-
-const Usuario = connection_1.default.define("Usuario", {
-  Emp_Email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const connection_1 = __importDefault(require("../db/connection"));
+const sequelize_1 = require("sequelize");
+const Usuario = connection_1.default.define('Usuario', {
+    Emp_Email: {
+        type: sequelize_1.DataTypes.STRING
     },
-  },
-  Contrasenia: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  IDRol: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      isIn: [[1, 2, 3]], // 1: Empleado, 2: Admin, 3: Super Admin
+    Contrasenia: {
+        type: sequelize_1.DataTypes.STRING
     },
-  },
+    IDRol: {
+        type: sequelize_1.DataTypes.INTEGER
+    }
 }, {
-  tableName: "Usuarios",
-  timestamps: false,
+    createdAt: false,
+    updatedAt: false
 });
-
-module.exports = Usuario;
+exports.default = Usuario;
